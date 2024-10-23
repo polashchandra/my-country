@@ -1,19 +1,41 @@
 import React, { useEffect, useState } from 'react';
 import Country from './Country';
-
+import './Ciuntrys.css'
 
 const Countrys = () => {
     const [countrys, setCountrys] = useState([])
-    useEffect(()=>{
+    const [visitedCountry,setVisitedCountry] = useState([])
+
+    useEffect(() => {
         fetch("https://restcountries.com/v3.1/all")
-        .then(res=>res.json())
-        .then(data=>setCountrys(data))
-    },[])
+            .then(res => res.json())
+            .then(data => setCountrys(data))
+    }, [])
+    const handleVisitedCountry= country =>{
+        console.log('visited');
+        const newvisitedCountry=[...visitedCountry, country]
+        setVisitedCountry(newvisitedCountry)
+        
+        
+    }
     return (
-        <div >
+        <div className='countris-contineer'>
             <h1>countrys: {countrys.length}</h1>
+            <div>
+                <h3>visited country</h3>
+                {
+                    visitedCountry.map(coutry=><li key={coutry.
+                        cca2
+                        }>{coutry.name.common}</li>)
+                }
+            </div>
+
             {
-                countrys.map(country=> <Country key={country.name.common} country={country}></Country>)
+                countrys.map(country => <Country 
+                    key={country.name.common} 
+                    country={country}
+                    handleVisitedCountry={handleVisitedCountry}
+                    ></Country>)
             }
         </div>
     );
